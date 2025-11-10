@@ -6,14 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const loginRoutes = require('./routes/login');
-import {PORT} from './config.js'
-import {
-  DB_HOST, 
-  DB_NAME, 
-  DB_PASSWORD, 
-  DB_USER, 
-  DB_PORT
-} from './config.js'
+
 
 app.set('port', 4000);
 
@@ -27,11 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(myconnection(mysql, {
-  host: process.env.DB_HOST,      // HOST de Railway
-  user: process.env.DB_USER,      // USERNAME de Railway
-  password: process.env.DB_PASS,  // PASSWORD de Railway
-  port: process.env.DB_PORT,      // PORT de Railway (3306 normalmente)
-  database: process.env.DB_NAME   // DATABASE de Railway
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  port: 3306,
+  database: 'nodelogin'
 }));
 
 app.use(session({
@@ -89,6 +82,8 @@ app.post('/removeFavorito', (req, res) => {
 
 
 
-
 // Servidor
-app.listen(PORT);
+app.listen(app.get('port'), () => {
+  console.log('Servidor corriendo en http://localhost:' + app.get('port'));
+});
+
