@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(myconnection(mysql, {
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  port: 3306,
-  database: 'nodelogin'
+  host: process.env.DB_HOST,      // HOST de Railway
+  user: process.env.DB_USER,      // USERNAME de Railway
+  password: process.env.DB_PASS,  // PASSWORD de Railway
+  port: process.env.DB_PORT,      // PORT de Railway (3306 normalmente)
+  database: process.env.DB_NAME   // DATABASE de Railway
 }));
 
 app.use(session({
